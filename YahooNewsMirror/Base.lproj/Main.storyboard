@@ -1,24 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0BJ-ch-fCi">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nJW-DF-qbg">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nJW-DF-qbg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3Xc-y3-8B5"/>
+                            <constraint firstItem="nJW-DF-qbg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tZg-Hr-y26"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nJW-DF-qbg" secondAttribute="trailing" id="vUs-dI-gtX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nJW-DF-qbg" secondAttribute="bottom" id="wph-Zo-lME"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="GPz-7K-5Vd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2550.7246376811595" y="-898.66071428571422"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Aid-kU-kvy">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0BJ-ch-fCi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="j2c-OO-7LU">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="iIo-rs-tKy" kind="relationship" relationship="viewControllers" id="1HX-Ry-J2q"/>
+                        <segue destination="AXA-JE-wHX" kind="relationship" relationship="viewControllers" id="VKj-Ik-9td"/>
+                        <segue destination="hVr-Y8-7pA" kind="relationship" relationship="viewControllers" id="IQk-Eg-Etu"/>
+                        <segue destination="R9J-T8-hip" kind="relationship" relationship="viewControllers" id="4At-zb-dEh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8H8-2h-xED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="110" y="67"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="ZY0-sa-1Q4">
+            <objects>
+                <viewController id="AXA-JE-wHX" customClass="HomeViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n3M-hV-og5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="46W-rn-KpI"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="b1z-eK-ZaJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2t-2M-x7Z" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="-135"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Nzm-lu-8lT">
+            <objects>
+                <viewController id="R9J-T8-hip" customClass="HomeViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N8z-Ot-mY4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="wph-S9-4vr"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="JLX-EA-j4r"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0J2-3X-bfw" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="1336"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="INX-Uh-TAm">
+            <objects>
+                <viewController id="hVr-Y8-7pA" customClass="HomeViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ed3-nF-eu5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="gJw-P8-YWQ"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="qYB-F7-ml3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GxP-G6-osu" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="617"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="H04-eE-YX9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iIo-rs-tKy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" selectedImage="HomeIcon" systemItem="favorites" id="5jS-Kp-5yr"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DZR-5J-baM">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="I7G-3a-vlZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hxd-cW-Kwt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1640.5797101449277" y="-898.66071428571422"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HomeIcon" width="85.333335876464844" height="85.333335876464844"/>
+    </resources>
 </document>
