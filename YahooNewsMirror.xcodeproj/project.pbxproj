@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E578E7D237FDFF300B5B165 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E578E7B237FDFF300B5B165 /* ArticleCell.swift */; };
+		9E578E7E237FDFF300B5B165 /* ArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E578E7C237FDFF300B5B165 /* ArticleCell.xib */; };
 		9EA87847237F0FBC00216A17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA87846237F0FBC00216A17 /* AppDelegate.swift */; };
 		9EA87849237F0FBC00216A17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA87848237F0FBC00216A17 /* SceneDelegate.swift */; };
 		9EA8784B237F0FBC00216A17 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA8784A237F0FBC00216A17 /* HomeViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E578E7B237FDFF300B5B165 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		9E578E7C237FDFF300B5B165 /* ArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCell.xib; sourceTree = "<group>"; };
 		9EA87843237F0FBC00216A17 /* YahooNewsMirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YahooNewsMirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA87846237F0FBC00216A17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EA87848237F0FBC00216A17 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 				9EA87848237F0FBC00216A17 /* SceneDelegate.swift */,
 				9EA8784A237F0FBC00216A17 /* HomeViewController.swift */,
 				9EA8784C237F0FBC00216A17 /* Main.storyboard */,
+				9E578E7B237FDFF300B5B165 /* ArticleCell.swift */,
+				9E578E7C237FDFF300B5B165 /* ArticleCell.xib */,
 				9EA8784F237F0FC300216A17 /* Assets.xcassets */,
 				9EA87851237F0FC300216A17 /* LaunchScreen.storyboard */,
 				9EA87854237F0FC300216A17 /* Info.plist */,
@@ -125,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E578E7E237FDFF300B5B165 /* ArticleCell.xib in Resources */,
 				9EA87853237F0FC300216A17 /* LaunchScreen.storyboard in Resources */,
 				9EA87850237F0FC300216A17 /* Assets.xcassets in Resources */,
 				9EA8784E237F0FBC00216A17 /* Main.storyboard in Resources */,
@@ -138,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E578E7D237FDFF300B5B165 /* ArticleCell.swift in Sources */,
 				9EA8784B237F0FBC00216A17 /* HomeViewController.swift in Sources */,
 				9EA87847237F0FBC00216A17 /* AppDelegate.swift in Sources */,
 				9EA87849237F0FBC00216A17 /* SceneDelegate.swift in Sources */,

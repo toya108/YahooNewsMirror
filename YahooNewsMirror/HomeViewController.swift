@@ -27,11 +27,10 @@ struct Item: Codable {
     let guid: String
 }
 
-
 /// ホーム画面
 class HomeViewController: UIViewController {
 
-    var articles: [Item] = [] {
+    var items: [Item] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -47,7 +46,9 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        guard let url = URL(string: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.yahoo.co.jp%2Fpickup%2Frss.xml") else { return }
+        tableView.register(UINib(nibName: "ArticleCell", bundle: nil), forCellReuseIdentifier: "ArticleCell")
+        
+        guard let url = URL(string: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.yahoo.co.jp%2Fpickup%2Frss.xml&api_key=hybg4dcph35nb1dukcxlctpevjn8hb2fvibpuhzd") else { return }
         
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             guard let data = data else { return }
@@ -55,7 +56,8 @@ class HomeViewController: UIViewController {
             
             guard let articles = try?decoder.decode(ArticleList.self, from: data) else { return }
             DispatchQueue.main.async() { () -> Void in
-                self.articles = articles.items
+                print(articles)
+                self.items = articles.items
             }
         })
         
@@ -65,12 +67,17 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = articles[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
+        cell.titleLable.text = items[indexPath.row].title
+        cell.pubDateLable.text = items[indexPath.row].pubDate
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
