@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage
+import XLPagerTabStrip
 
 struct ArticleList: Codable {
     let status: String
