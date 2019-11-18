@@ -76,6 +76,12 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let link = items[indexPath.row].link
+        let vc = DetailWebViewController(urlStr: link)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

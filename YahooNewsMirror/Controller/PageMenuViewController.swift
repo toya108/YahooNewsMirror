@@ -16,6 +16,7 @@ class PageMenuViewController: ButtonBarPagerTabStripViewController {
     override func viewDidLoad() {
         setButtonBar()
         super.viewDidLoad()
+        navigationItem.title = "Yahoo!ニュース"
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

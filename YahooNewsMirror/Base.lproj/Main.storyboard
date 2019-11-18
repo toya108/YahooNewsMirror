@@ -29,33 +29,33 @@
             </objects>
             <point key="canvasLocation" x="110" y="67"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
         <scene sceneID="ZY0-sa-1Q4">
             <objects>
-                <viewController id="AXA-JE-wHX" customClass="NewsViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AXA-JE-wHX" customClass="ViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n3M-hV-og5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="46W-rn-KpI"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="b1z-eK-ZaJ"/>
+                    <tabBarItem key="tabBarItem" systemItem="history" id="b1z-eK-ZaJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2t-2M-x7Z" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1641" y="-135"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
         <scene sceneID="Nzm-lu-8lT">
             <objects>
-                <viewController id="R9J-T8-hip" customClass="NewsViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="R9J-T8-hip" customClass="ViewController" customModule="YahooNewsMirror" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N8z-Ot-mY4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="wph-S9-4vr"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="JLX-EA-j4r"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostRecent" id="JLX-EA-j4r"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0J2-3X-bfw" sceneMemberID="firstResponder"/>
             </objects>

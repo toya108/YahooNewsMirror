@@ -7,24 +7,38 @@
 //
 
 import UIKit
+import WebKit
 
 class DetailWebViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    let wkWebView = WKWebView()
+    var urlStr: String?
+    
+    init(urlStr: String) {
+        self.urlStr = urlStr
+        super.init(nibName: nil, bundle: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        wkWebView.frame = view.frame
+        wkWebView.navigationDelegate = self
+        wkWebView.uiDelegate = self
+        wkWebView.allowsBackForwardNavigationGestures = true
+        let url = URLRequest(url: URL(string: urlStr!)!)
+        wkWebView.load(url)
+        view.addSubview(wkWebView)
+    }
+}
 
+extension DetailWebViewController: WKNavigationDelegate {
+    
+}
+
+extension DetailWebViewController: WKUIDelegate {
+    
 }
