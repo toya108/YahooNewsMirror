@@ -13,12 +13,36 @@ import XLPagerTabStrip
 /// ホーム画面
 class NewsViewController: UITableViewController, IndicatorInfoProvider {
     
+    /// セルの情報列挙体
+    private enum CellInfo {
+        case topArticleCell
+        case articelCell
+        
+        var nibName: String {
+            switch self {
+            case .topArticleCell:
+                return "TopArticleCell"
+            case .articelCell:
+                return "ArticleCell"
+            }
+        }
+        
+        var cellId: String {
+            switch self {
+            case .topArticleCell:
+                return "TopArticleCell"
+            case .articelCell:
+                return "ArticleCell"
+            }
+        }
+    }
+    
     // MARK: Properties
     
     /// タブメニュー編集用インスタンス
     var itemInfo = IndicatorInfo(title: "タブ名")
     /// ニュース種別
-    var newsType: NewsType?
+    var newsType: NewsType = .main
     /// 記事一覧
     var items: [Item] = [] {
         didSet {
@@ -42,14 +66,17 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "ArticleCell", bundle: nil), forCellReuseIdentifier: "ArticleCell")
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
+        tableView.register(UINib(nibName: CellInfo.articelCell.nibName,bundle: nil), forCellReuseIdentifier: CellInfo.articelCell.cellId)
+        tableView.register(UINib(nibName: CellInfo.topArticleCell.nibName, bundle: nil), forCellReuseIdentifier: CellInfo.topArticleCell.cellId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         // TODO: newsTypeがnilの時はありえないのにオプショナルになってるから直したい
-        RssClient.fetchItems(urlString: self.newsType?.urlStr ?? "", completion: { (response) in
+        RssClient.fetchItems(urlString: self.newsType.urlStr, completion: { (response) in
             switch response {
             case .success(let items):
                 DispatchQueue.main.async() { () -> Void in
@@ -68,20 +95,50 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
-        cell.titleLable.text = items[indexPath.row].title
-        cell.pubDateLable.text = items[indexPath.row].pubDate
-        let link = items[indexPath.row].link
+        
+        // トップ記事のセルかどうか
+        var isTopArticleCell: Bool {
+            return indexPath.row == 0
+        }
+        
+        guard isTopArticleCell else {
+            let articleCell = tableView.dequeueReusableCell(withIdentifier: CellInfo.articelCell.cellId, for: indexPath) as! ArticleCell
+            
+            articleCell.titleLable.text = items[indexPath.row].title
+            articleCell.pubDateLable.text = items[indexPath.row].pubDate
+            
+            let link = items[indexPath.row].link
+            RssClient.fetchThumnImgUrl(urlStr: link, completion: { response in
+                switch response {
+                case .success(let url):
+                     // TODO: 画像のロードが遅すぎる。キャッシュに画像持たせるように修正したい。
+                    articleCell.articleImage.sd_setImage(with: url, completed: nil)
+                case .failure(let err):
+                    print("HTMLの取得に失敗しました: reason(\(err))")
+                    articleCell.articleImage.image = UIImage()
+                }
+            })
+            return articleCell
+        }
+        
+        let topArticleCell = tableView.dequeueReusableCell(withIdentifier: CellInfo.topArticleCell.cellId, for: indexPath) as! TopArticleCell
+        topArticleCell.titleLable.text = items.first?.title
+        topArticleCell.pubDateLabel.text = items.first?.pubDate
+        let link = items.first?.link ?? ""
         RssClient.fetchThumnImgUrl(urlStr: link, completion: { response in
             switch response {
             case .success(let url):
-                cell.articleImage.image = UIImage(url: url)
+                 // TODO: 画像のロードが遅すぎる。キャッシュに画像持たせるように修正したい。
+                topArticleCell.articleImage.sd_setImage(with: url, completed: nil)
             case .failure(let err):
                 print("HTMLの取得に失敗しました: reason(\(err))")
+                topArticleCell.articleImage.image = UIImage()
             }
         })
-        return cell
+        return topArticleCell
     }
+    
+    // MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let link = items[indexPath.row].link
@@ -89,10 +146,12 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: UITableViewDelegate
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        // トップ記事のセルかどうか
+        var isTopArticleCell: Bool {
+            return indexPath.row == 0
+        }
+        return isTopArticleCell ? 165 : 50
     }
     
     // MARK: - IndicatorInfoProvider

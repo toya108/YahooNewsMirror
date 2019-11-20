@@ -10,6 +10,5 @@ target 'YahooNewsMirror' do
 pod 'XLPagerTabStrip', '~> 9.0'
 pod 'SDWebImage', '~> 5.0'
 pod "HTMLReader"
-pod 'Alamofire', '~> 5.0.0-rc.3'
 
 end

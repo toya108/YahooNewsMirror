@@ -10,10 +10,16 @@ import UIKit
 import WebKit
 
 class DetailWebViewController: UIViewController {
-
-    let wkWebView = WKWebView()
-    var urlStr: String?
     
+    // MARK: Properties
+
+    /// web表示用View
+    private let wkWebView = WKWebView()
+    /// 読み込むURL
+    private var urlStr: String?
+    
+    // MARK: Initializer
+
     init(urlStr: String) {
         self.urlStr = urlStr
         super.init(nibName: nil, bundle: nil)
@@ -23,8 +29,11 @@ class DetailWebViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO: WebView適当すぎるのでプログレスバーとか戻るボタンとか付けたい
         wkWebView.frame = view.frame
         wkWebView.navigationDelegate = self
         wkWebView.uiDelegate = self

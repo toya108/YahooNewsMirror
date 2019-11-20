@@ -7,21 +7,7 @@
 //
 
 import Foundation
-import Alamofire
 import HTMLReader
-
-enum NetworkError: Error {
-    // 不正なURLが指定されました。
-    case invalidURL
-    // 不正なレスポンスが返されました。
-    case invalidResponse
-    // 想定外のエラーです。
-    case unknown
-}
-enum AppalicationError: Error {
-    case parseFailed
-    case unknown
-}
 
 /// RSS取得用クラス
 class RssClient {
@@ -92,6 +78,13 @@ class RssClient {
         task.resume()
     }
     
+    /// 記事の画像のurlを取得します
+    /// - サムネイル表示のために用意
+    /// - Warning: URLから取得先のHTML全部取ってきてサムネだけ抜き出した上で画像のURL返してるから非常に冗長。
+    ///            かつロードにも時間がかかるのでキャッシュに持たせるとかして修正を検討してください。
+    ///
+    /// - Parameter urlStr: 画像取得先のurl
+    /// - Parameter completion: 完了後の処理
     static func fetchThumnImgUrl(urlStr: String, completion: @escaping (Result<URL, Error>) -> ()) {
         // 入力したURLからHTMLのソースを取得する。
         guard let targetURL = URL(string: urlStr) else {
@@ -118,7 +111,7 @@ class RssClient {
             }()
             
             guard let imageUrl = URL(string: imageUrlStr) else {
-                completion(.failure(AppalicationError.unknown))
+                completion(.failure(NetworkError.invalidURL))
                 return
             }
             
@@ -128,54 +121,21 @@ class RssClient {
             completion(.failure(error))
         }
     }
-    
-
-    
-//    static func fetchImageFromHTML(urlStr: String) {
-//        guard let url = URL(string: urlStr) else {
-//            return
-//        }
-//        AF.request(url).responseString { response in
-//            guard let html = response.result.
-//
-//        }
-//
-//
-//
-//            Alamofire.request(.GET, url!, parameters: nil)
-//
-//                .responseString { (request, response, data, error) in
-//
-//                    var content = ""
-//                    let html = HTMLDocument(string: data)
-//
-//                    if let ogTags = html.nodesMatchingSelector("meta[property=\"og:description\"]") {
-//                        for tag in ogTags {
-//                            content = (tag.attributes?["content"] as? String)!
-//                        }
-//                    }
-//
-//                    var image = ""
-//                    if let imgTags = html.nodesMatchingSelector("img") {
-//                        for img in imgTags {
-//                            if(img.attributes?["data-src"] != nil){
-//                               image = (img.attributes?["data-src"] as? String)!
-//                            }
-//                        }
-//                    }
-//
-//                   ret = [ "content": content , "image" : image ]
-//                   completion(ret, error)
-//            }
-//        }
-//
-//    }
 }
 
-extension String {
-    func removeString(string: String) -> String {
-        let startIndex = string.index(string.startIndex, offsetBy: 24)
-        let endIndex = string.index(string.endIndex, offsetBy: 4)
-        return String(string[startIndex..<endIndex])
-    }
+/// ネットワークエラー
+enum NetworkError: Error {
+    // 不正なURLが指定されました。
+    case invalidURL
+    // 不正なレスポンスが返されました。
+    case invalidResponse
+    // 想定外のエラーです。
+    case unknown
+}
+/// アプリケーションエラー
+enum AppalicationError: Error {
+    // 何かのパースに失敗しました。
+    case parseFailed
+    // 想定外のエラーです。
+    case unknown
 }

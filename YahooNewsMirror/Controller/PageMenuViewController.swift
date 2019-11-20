@@ -9,6 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
+/// ページメニュー用ViewController
 class PageMenuViewController: ButtonBarPagerTabStripViewController {
     
     // MARK: LifeCycle
@@ -29,7 +30,7 @@ class PageMenuViewController: ButtonBarPagerTabStripViewController {
     /// - Warning: 必ずsuper.viewDidLoad()の上で呼び出してください。
     private func setButtonBar() {
         settings.style.buttonBarBackgroundColor = .clear
-        settings.style.selectedBarBackgroundColor = .yellow
+        settings.style.selectedBarBackgroundColor = .orange
         settings.style.buttonBarMinimumLineSpacing = 2
     }
     

@@ -8,10 +8,14 @@
 
 import UIKit
 
+/// 記事表示用のセル
 class ArticleCell: UITableViewCell {
-
+    
+    /// サムネイル画像
     @IBOutlet weak var articleImage: UIImageView!
+    /// タイトル
     @IBOutlet weak var titleLable: UILabel!
+    /// 日付
     @IBOutlet weak var pubDateLable: UILabel!
     
     override func awakeFromNib() {
