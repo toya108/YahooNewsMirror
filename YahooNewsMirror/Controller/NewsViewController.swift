@@ -40,11 +40,11 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
     // MARK: Properties
     
     /// タブメニュー編集用インスタンス
-    var itemInfo = IndicatorInfo(title: "タブ名")
+    private var itemInfo = IndicatorInfo(title: "タブ名")
     /// ニュース種別
-    var newsType: NewsType = .main
+    private var newsType: NewsType = .main
     /// 記事一覧
-    var items: [Item] = [] {
+    private var items: [Item] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -96,12 +96,27 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // トップ記事のセルかどうか
-        var isTopArticleCell: Bool {
-            return indexPath.row == 0
+        // トップ記事用のセルを生成します。
+        func configureTopArticleCell() -> TopArticleCell {
+            let topArticleCell = tableView.dequeueReusableCell(withIdentifier: CellInfo.topArticleCell.cellId, for: indexPath) as! TopArticleCell
+            topArticleCell.titleLable.text = items.first?.title
+            topArticleCell.pubDateLabel.text = items.first?.pubDate
+            let link = items.first?.link ?? ""
+            RssClient.fetchThumnImgUrl(urlStr: link, completion: { response in
+                switch response {
+                case .success(let url):
+                     // TODO: 画像のロードが遅すぎる。キャッシュに画像持たせるように修正したい。
+                    topArticleCell.articleImage.sd_setImage(with: url, completed: nil)
+                case .failure(let err):
+                    print("HTMLの取得に失敗しました: reason(\(err))")
+                    topArticleCell.articleImage.image = UIImage()
+                }
+            })
+            return topArticleCell
         }
         
-        guard isTopArticleCell else {
+        // 記事表示用のセルを生成します。
+        func configureArticleCell() -> ArticleCell {
             let articleCell = tableView.dequeueReusableCell(withIdentifier: CellInfo.articelCell.cellId, for: indexPath) as! ArticleCell
             
             articleCell.titleLable.text = items[indexPath.row].title
@@ -121,21 +136,15 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
             return articleCell
         }
         
-        let topArticleCell = tableView.dequeueReusableCell(withIdentifier: CellInfo.topArticleCell.cellId, for: indexPath) as! TopArticleCell
-        topArticleCell.titleLable.text = items.first?.title
-        topArticleCell.pubDateLabel.text = items.first?.pubDate
-        let link = items.first?.link ?? ""
-        RssClient.fetchThumnImgUrl(urlStr: link, completion: { response in
-            switch response {
-            case .success(let url):
-                 // TODO: 画像のロードが遅すぎる。キャッシュに画像持たせるように修正したい。
-                topArticleCell.articleImage.sd_setImage(with: url, completed: nil)
-            case .failure(let err):
-                print("HTMLの取得に失敗しました: reason(\(err))")
-                topArticleCell.articleImage.image = UIImage()
-            }
-        })
-        return topArticleCell
+        // トップ記事のセルかどうか
+        var isTopArticleCell: Bool {
+            return indexPath.row == 0
+        }
+        
+        guard isTopArticleCell else {
+            return configureArticleCell()
+        }
+        return configureTopArticleCell()
     }
     
     // MARK: UITableViewDelegate
