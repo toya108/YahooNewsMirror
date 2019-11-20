@@ -42,15 +42,13 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.estimatedRowHeight = 600.0
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.allowsSelection = false
         tableView.register(UINib(nibName: "ArticleCell", bundle: nil), forCellReuseIdentifier: "ArticleCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+         // TODO: newsTypeがnilの時はありえないのにオプショナルになってるから直したい
         RssClient.fetchItems(urlString: self.newsType?.urlStr ?? "", completion: { (response) in
             switch response {
             case .success(let items):
@@ -73,6 +71,15 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
         cell.titleLable.text = items[indexPath.row].title
         cell.pubDateLable.text = items[indexPath.row].pubDate
+        let link = items[indexPath.row].link
+        RssClient.fetchThumnImgUrl(urlStr: link, completion: { response in
+            switch response {
+            case .success(let url):
+                cell.articleImage.image = UIImage(url: url)
+            case .failure(let err):
+                print("HTMLの取得に失敗しました: reason(\(err))")
+            }
+        })
         return cell
     }
     
@@ -92,5 +99,18 @@ class NewsViewController: UITableViewController, IndicatorInfoProvider {
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
+    }
+}
+
+extension UIImage {
+    public convenience init(url: URL) {
+        do {
+            let data = try Data(contentsOf: url)
+            self.init(data: data)!
+            return
+        } catch let err {
+            print("UIImageの初期化に失敗しました: reason(\(err))")
+        }
+        self.init()
     }
 }
