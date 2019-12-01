@@ -1,0 +1,26 @@
+PODS:
+  - HTMLReader (2.1.4)
+  - SDWebImage (5.3.1):
+    - SDWebImage/Core (= 5.3.1)
+  - SDWebImage/Core (5.3.1)
+  - XLPagerTabStrip (9.0.0)
+
+DEPENDENCIES:
+  - HTMLReader
+  - SDWebImage (~> 5.0)
+  - XLPagerTabStrip (~> 9.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - HTMLReader
+    - SDWebImage
+    - XLPagerTabStrip
+
+SPEC CHECKSUMS:
+  HTMLReader: 2fc5ccf6a041b7070d9b43b101034cba63d2ae2a
+  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
+  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
+
+PODFILE CHECKSUM: 6f24de176049a85277cf345527cfee6938f0d175
+
+COCOAPODS: 1.5.3
